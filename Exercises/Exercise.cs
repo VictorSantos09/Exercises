@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics.Metrics;
+using System.Drawing;
 
 namespace Exercises
 {
@@ -147,7 +148,7 @@ namespace Exercises
             var number = 0;
             var biggestOne = 0;
             var biggestTwo = 0;
-            
+
             while (true)
             {
                 Console.WriteLine("Digite 0 para sair");
@@ -156,7 +157,7 @@ namespace Exercises
 
                 if (number == 0) break;
 
-                if (number > biggestOne) 
+                if (number > biggestOne)
                 {
                     biggestTwo = biggestOne;
                     biggestOne = number;
@@ -167,6 +168,38 @@ namespace Exercises
             }
 
             Console.WriteLine("O maior número é " + number);
+        }
+
+        public static void ArquivoTexto()
+        {
+            // Crie um programa que leia um arquivo de texto e conte quantas vezes cada palavra aparece.
+            var path = @$"{Directory.GetCurrentDirectory()}..\..\..\..\textos.txt";
+
+            if (File.Exists(path) == false)
+                File.Create(path).Close();
+
+            var data = File.ReadAllText(path).Split(" ");
+            List<object> result = new List<object>();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                var content = data[i];
+                var qtd = 0;
+
+                for (int j = 0; j < data.Length; j++)
+                {
+                    if (data[j] == content) qtd++;
+                }
+                var obj = new { Texto = content, Quantidade = qtd };
+
+                if (result.Contains(obj) == false)
+                    result.Add(obj);
+            }
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
