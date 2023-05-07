@@ -1,3 +1,3 @@
 ﻿using Exercises;
 
-Exercise.ArquivoTexto();
+Exercise.Fatorial();
