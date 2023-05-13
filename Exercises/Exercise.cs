@@ -201,5 +201,107 @@ namespace Exercises
                 Console.WriteLine(item);
             }
         }
+
+        public static void Fibonnaci()
+        {
+            //Dado a sequência de Fibonacci, onde se inicia por 0 e 1 e o próximo valor sempre será a soma dos 2 valores anteriores (exemplo: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34...), 
+            //escreva um programa na linguagem que desejar onde, informado um número, ele calcule a sequência de Fibonacci e indique se o número informado pertence ou não a sequência:
+
+            //a) Esse número pode ser informado através de qualquer entrada de sua preferência ou pode ser previamente definido no código;
+            //b) É necessário guardar os números da sequência que estão sendo calculados.
+            while (true)
+            {
+                Console.WriteLine("Informe um número ou 0 para encerrar");
+                Console.Write("Digite: ");
+                long number = Convert.ToInt32(Console.ReadLine());
+
+                if (number == 0)
+                    break;
+
+                List<long> numbers = new List<long>();
+                numbers.Add(0);
+                numbers.Add(1);
+
+                Console.Write("Resultado: ");
+                for (int i = 0; i < number; i++)
+                {
+                    var last = numbers.Last();
+                    var beforeLast = numbers[numbers.LastIndexOf(last) - 1];
+                    var result = last + beforeLast;
+
+                    numbers.Add(result);
+                    Console.Write($"{result} ");
+                }
+
+                if (numbers.Contains(number))
+                    Console.WriteLine("\nO número informado pertence a sequência");
+
+                else
+                    Console.WriteLine("\nO número informado não pertence a sequência");
+            }
+        }
+
+        public static void Distribuidora()
+        {
+            //Dado um vetor que guarda o valor de faturamento diário de uma distribuidora de todos os dias de um ano, faça um programa, na linguagem que desejar, que calcule e retorne:
+            //• O menor valor de faturamento ocorrido em um dia do ano;
+            //• O maior valor de faturamento ocorrido em um dia do ano;
+            //• Número de dias no ano em que o valor de faturamento diário foi superior à média anual.
+
+            //a) Considerar o vetor já carregado com as informações de valor de faturamento.
+            //b) Podem existir dias sem faturamento, como nos finais de semana e feriados. Estes dias devem ser ignorados no cálculo da média.
+            //c) Utilize o algoritmo mais veloz que puder definir.
+
+            Random rand = new Random();
+            var totalDiasUteis = 250;
+            decimal[] values = new decimal[totalDiasUteis];
+
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                values[i] = rand.Next(3567);
+            }
+
+            List<decimal> valuesList = values.ToList();
+            var perDay = valuesList.Sum() / totalDiasUteis;
+            var numberDays = valuesList.FindAll(x => x > perDay).Count;
+
+            Console.WriteLine($"O menor valor é : {valuesList.Min()}");
+            Console.WriteLine($"O maior valor é : {valuesList.Max()}");
+            Console.WriteLine($"Numero de dias com maior faturamento: {numberDays}");
+        }
+
+        public static void PercentualEstado()
+        {
+            // Escreva um programa na linguagem que desejar onde calcule o percentual de representação que cada estado teve dentro do valor total mensal da distribuidora.
+
+            double SP = 67.836;
+            double RJ = 36.678;
+            double MG = 29.229;
+            double ES = 27.165;
+            double Outros = 19.849;
+
+            List<double> values = new List<double>
+            {
+                SP, RJ, MG, ES, Outros
+            };
+
+            double total = 0;
+            for (int i = 0; i < values.Count; i++)
+            {
+                total += values[i];
+            }
+
+            Console.WriteLine($"SP: {Calculate(SP)}");
+            Console.WriteLine($"RJ: {Calculate(RJ)}");
+            Console.WriteLine($"MG: {Calculate(MG)}");
+            Console.WriteLine($"ES: {Calculate(ES)}");
+            Console.WriteLine($"Outros: {Calculate(Outros)}");
+
+            int Calculate(double number)
+            {
+                return Convert.ToInt32((number * 100) / total);
+            }
+        }
     }
 }
